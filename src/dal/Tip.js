@@ -4,6 +4,6 @@ export default class {
   }
 
   async findAllcategories() {
-    return await this.Tip.find({}, 'category').distinct('category')
+    return await this.Tip.distinct('category')
   }
 }
