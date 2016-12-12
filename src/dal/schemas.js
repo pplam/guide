@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import paginator from 'mongoose-paginate'
 
 const Schema = mongoose.Schema
 
@@ -32,5 +33,6 @@ const tip = new Schema({
   extraUrl: String,
   extraHtml: String,
 })
+tip.plugin(paginator)
 
 export default { tip }

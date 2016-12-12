@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import Spider from './spider'
 import config from '../config.json'
 
