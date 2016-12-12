@@ -15,8 +15,6 @@ export default class {
     await this.db.connect()
     const Tip = this.db.Mongo.model('Tip', schemas.tip)
     await Tip.insertMany(tips)
-    await this.crawler.stop()
-    await this.db.disconnect()
   }
 
   async stop() {

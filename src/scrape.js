@@ -6,6 +6,7 @@ import config from '../config.json'
   try {
     const spider = new Spider(config)
     await spider.start()
+    await spider.stop()
   } catch (e) {
     console.log(e.stack)
   }
