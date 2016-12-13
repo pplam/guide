@@ -5,6 +5,7 @@ import cors from 'koa-cors'
 
 import Dal from '../dal'
 import setupTipRoutes from './routes/tip'
+import paramsParser from './middlewares/paramsParser'
 
 export default class {
   constructor(config = {}) {
@@ -18,6 +19,7 @@ export default class {
     this.app.use(logger())
     this.app.use(bodyParser())
 
+    this.app.use(paramsParser())
     setupTipRoutes(this.app, this.dal)
   }
 

@@ -4,27 +4,9 @@ export default (app, dal) => {
   const router = new Router()
 
   router.get('/categories', async (ctx) => {
-    const cates = await dal.tip.findAllcategories()
+    const cates = await dal.tip.findCategories()
     ctx.status = 200
     ctx.body = cates
-  })
-
-  router.get('/titles/:category?', async (ctx) => {
-    // const page = ctx.query.page
-    // const limit = ctx.query.limit
-    const pagination = {
-      page: parseInt(ctx.query.page, 10),
-      limit: parseInt(ctx.query.limit, 10),
-    }
-    // const search = ctx.query.search
-    // const cate = ctx.params.category
-    const query = {
-      search: ctx.query.search,
-      category: ctx.params.category,
-    }
-    const titles = await dal.tip.findEntries({ query, pagination })
-    ctx.status = 200
-    ctx.body = titles
   })
 
   router.get('/subtitles/:title', async (ctx) => {
@@ -33,6 +15,24 @@ export default (app, dal) => {
     ctx.status = 200
     ctx.body = subtitles
   })
+
+  router.get('/entry/:id', async (ctx) => {
+    const id = ctx.params.id
+    const fields = ctx.reqData.pagination.select
+    const entry = await dal.tip.findById(id, fields)
+    ctx.status = 200
+    ctx.body = entry
+  })
+
+  router.get('/entries/:category?', async (ctx) => {
+    if (ctx.params.category) {
+      ctx.reqData.query.category = ctx.params.category
+    }
+    const entries = await dal.tip.findEntries(ctx.reqData)
+    ctx.status = 200
+    ctx.body = entries
+  })
+
   app.use(router.routes())
   app.use(router.allowedMethods())
 }

@@ -7,9 +7,18 @@ export default class {
     return await this.Tip.distinct('category')
   }
 
+  async findSubtitlesByTitle(title) {
+    return await this.Tip.find({ title }, 'subtitle')
+  }
+
+  async findById(id, fields = 'title subtitle') {
+    return await this.Tip.findOne({ _id: id }, fields)
+  }
+
   async findEntries(opts = {}) {
-    const q = opts.query
+    const q = opts.query || {}
     const query = {}
+    if (q._id) query._id = q._id
     if (q.category) query.category = q.category
     if (q.search) {
       query.$or = [
@@ -18,18 +27,8 @@ export default class {
       ]
     }
 
-    const p = opts.pagination
-    const pagination = {}
-    if (p.page) pagination.page = p.page
-    if (p.limit) pagination.limit = p.limit
-    pagination.select = 'title subtitle'
+    const pagination = opts.pagination || { page: 1, select: 'title subtitle' }
 
     return await this.Tip.paginate(query, pagination)
   }
-
-  async findSubtitlesByTitle(title) {
-    return await this.Tip.distinct('subtitle', { title })
-  }
-
-  // async find
 }
