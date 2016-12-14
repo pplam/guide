@@ -43,7 +43,7 @@ module.exports = {
       ref  : "origin/master",
       repo : "git@github.com:pplam/guide.git",
       path : "/var/www/development",
-      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env dev",
+      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.config.js --env dev",
       env  : {
         NODE_ENV: "dev"
       }
