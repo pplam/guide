@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import Server from './server'
 import config from '../config.json'
 
