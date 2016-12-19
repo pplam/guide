@@ -18,7 +18,7 @@ export default () => async (ctx, next) => {
 
   let select = 'title subtitle mainUrl'
   fields.forEach((field) => {
-    if (ctx.query[field]) select = `${select} ${field} ${field}Url ${field}Html`
+    if (ctx.query[field] === 1 || ctx.query[field] === '1' || ctx.query[field] === 'true') select = `${select} ${field} ${field}Url ${field}Html`
   })
 
   const pagination = {
