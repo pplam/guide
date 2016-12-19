@@ -11,7 +11,7 @@ export default class {
     return await this.Tip.find({ title }, 'subtitle')
   }
 
-  async findById(id, fields = 'title subtitle') {
+  async findById(id, fields = 'title subtitle mainUrl') {
     return await this.Tip.findOne({ _id: id }, fields)
   }
 
@@ -27,7 +27,7 @@ export default class {
       ]
     }
 
-    const pagination = opts.pagination || { page: 1, select: 'title subtitle' }
+    const pagination = opts.pagination || { page: 1, select: 'title subtitle mainUrl' }
 
     return await this.Tip.paginate(query, pagination)
   }

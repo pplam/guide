@@ -16,7 +16,7 @@ export default () => async (ctx, next) => {
   const query = {}
   if (search) query.search = search
 
-  let select = 'title subtitle'
+  let select = 'title subtitle mainUrl'
   fields.forEach((field) => {
     if (ctx.query[field]) select = `${select} ${field} ${field}Url ${field}Html`
   })
