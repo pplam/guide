@@ -1,3 +1,5 @@
+import isTrue from '../helpers/isTrue'
+
 export default () => async (ctx, next) => {
   const search = ctx.query.search
 
@@ -17,9 +19,13 @@ export default () => async (ctx, next) => {
   if (search) query.search = search
 
   let select = 'title subtitle mainUrl'
-  fields.forEach((field) => {
-    if (ctx.query[field] === 1 || ctx.query[field] === '1' || ctx.query[field] === 'true') select = `${select} ${field} ${field}Url ${field}Html`
-  })
+  if (isTrue(ctx.query.all)) {
+    select = ''
+  } else {
+    fields.forEach((field) => {
+      if (isTrue(ctx.query[field])) select = `${select} ${field} ${field}Url ${field}Html`
+    })
+  }
 
   const pagination = {
     page: page ? parseInt(page, 10) : 1,
