@@ -184,7 +184,7 @@ export default class Crawler {
       await this.page.stop()
       for (const content of contents) {
         await this.page.open(content.url)
-        content.html = await this.page.evaluate(extractContent)
+        content.html = await this.page.property('plainText')
         await this.page.stop()
       }
     }
