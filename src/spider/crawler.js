@@ -81,6 +81,10 @@ function takeContents() {
   })
 }
 
+function extractContent() {
+  return document.querySelector('body').textContent
+}
+
 export default class Crawler {
   constructor(url) {
     this.url = url
@@ -180,7 +184,7 @@ export default class Crawler {
       await this.page.stop()
       for (const content of contents) {
         await this.page.open(content.url)
-        content.html = await this.page.property('content')
+        content.html = await this.page.evaluate(extractContent)
         await this.page.stop()
       }
     }
